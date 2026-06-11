@@ -5,11 +5,16 @@ import os
 import re
 
 app = Flask(__name__)
+if not os.path.exists("uploads"):
+    os.makedirs("uploads")
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-genai.configure(api_key="YOUR_API_KEY")
+
+genai.configure(
+    api_key=os.environ.get("GEMINI_API_KEY")
+)
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
