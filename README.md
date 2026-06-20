@@ -19,6 +19,8 @@ AI-powered ATS Resume Analyzer built using Flask and Google Gemini.
 - PyPDF2
 - HTML
 - CSS
+- Langchain
+  
 
 ## Installation
 
