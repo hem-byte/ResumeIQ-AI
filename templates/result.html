@@ -18,16 +18,11 @@ href="{{ url_for('static', filename='style.css') }}">
 
     <div class="left-panel">
 
-        <h2 class="ats-title">
-            ATS SCORE
-        </h2>
+        <h2 class="ats-title">ATS SCORE</h2>
 
-        <div class="score-card">
-            {{ score }}/100
-        </div>
+        <div class="score-card">{{ score }}/100</div>
 
         <p class="rating">
-
         {% if score|int >= 80 %}
             Excellent
         {% elif score|int >= 60 %}
@@ -37,12 +32,9 @@ href="{{ url_for('static', filename='style.css') }}">
         {% else %}
             Needs Improvement
         {% endif %}
-
         </p>
 
-        <a href="/" class="new-analysis-btn">
-            New Analysis
-        </a>
+        <a href="/" class="new-analysis-btn">New Analysis</a>
 
     </div>
 
@@ -50,35 +42,81 @@ href="{{ url_for('static', filename='style.css') }}">
 
         <h1>Resume Dashboard</h1>
 
-        <div class="dashboard-card">
+        <div class="cards-grid">
 
-            <h2>💪 Strengths</h2>
+            <div class="dashboard-card">
+                <h2>💪 Strengths</h2>
 
-            <pre>{{ strengths }}</pre>
+                {% set s_lines = strengths.splitlines() %}
+                {% if s_lines|select('trim')|list|length > 0 %}
+                <ul class="result-list">
+                    {% for line in s_lines %}
+                        {% set item = line.strip() %}
+                        {% if item %}
+                            {% if item.startswith('-') %}
+                                <li>{{ item[1:].strip() }}</li>
+                            {% else %}
+                                <li>{{ item }}</li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p class="muted">No strengths detected.</p>
+                {% endif %}
 
-        </div>
+            </div>
 
-        <div class="dashboard-card">
+            <div class="dashboard-card">
+                <h2>⚠ Missing Skills</h2>
 
-            <h2>⚠ Missing Skills</h2>
+                {% set m_lines = missing_skills.splitlines() %}
+                {% if m_lines|select('trim')|list|length > 0 %}
+                <ul class="result-list">
+                    {% for line in m_lines %}
+                        {% set item = line.strip() %}
+                        {% if item %}
+                            {% if item.startswith('-') %}
+                                <li>{{ item[1:].strip() }}</li>
+                            {% else %}
+                                <li>{{ item }}</li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p class="muted">No missing skills detected.</p>
+                {% endif %}
 
-            <pre>{{ missing_skills }}</pre>
+            </div>
 
-        </div>
+            <div class="dashboard-card">
+                <h2>🚀 Improvements</h2>
 
-        <div class="dashboard-card">
+                {% set i_lines = improvements.splitlines() %}
+                {% if i_lines|select('trim')|list|length > 0 %}
+                <ul class="result-list">
+                    {% for line in i_lines %}
+                        {% set item = line.strip() %}
+                        {% if item %}
+                            {% if item.startswith('-') %}
+                                <li>{{ item[1:].strip() }}</li>
+                            {% else %}
+                                <li>{{ item }}</li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p class="muted">No improvements suggested.</p>
+                {% endif %}
 
-            <h2>🚀 Improvements</h2>
+            </div>
 
-            <pre>{{ improvements }}</pre>
-
-        </div>
-
-        <div class="dashboard-card">
-
-            <h2>📝 Final Verdict</h2>
-
-            <pre>{{ verdict }}</pre>
+            <div class="dashboard-card full-width-card">
+                <h2>📝 Final Verdict</h2>
+                <p class="verdict">{{ verdict.strip() }}</p>
+            </div>
 
         </div>
 
