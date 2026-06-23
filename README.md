@@ -1,6 +1,6 @@
 # ResumeIQ AI
 
-AI-powered ATS Resume Analyzer built using Flask and Google Gemini.
+AI-powered ATS Resume Analyzer built using Flask and Google Gemini
 
 ## Features
 
